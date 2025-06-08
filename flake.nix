@@ -12,12 +12,16 @@
     # Home manager
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    # emacs
+    emacs-overlay.url = "github:nix-community/emacs-overlay";
   };
 
   outputs = {
     self,
     nixpkgs,
     home-manager,
+    emacs-overlay,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -55,8 +59,19 @@
       astra-rog = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
-          # > Our main nixos configuration file <
-          ./nixos/configuration.nix
+          ({ config, pkgs, ... }: {
+           nixpkgs.overlays = [ emacs-overlay.overlays.emacs ];
+           environment.systemPackages = [
+           ((pkgs.emacsPackagesFor pkgs.emacsPgtk).emacsWithPackages (epkgs: [
+             epkgs.vterm
+             (epkgs.treesit-grammars.with-grammars (grammars: [
+                                                    grammars.tree-sitter-kdl
+             ]))
+           ]))
+           ];
+           })
+        home-manager.nixosModules.default
+        ./nixos/configuration.nix
         ];
       };
     };
