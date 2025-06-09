@@ -106,13 +106,6 @@
     };
   };
 
-
-  # Optionally set XCURSOR variables globally
-  environment.variables = {
-    XCURSOR_THEME = "Bibata-Modern-Ice";
-    XCURSOR_SIZE = "24";
-  };
-
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
@@ -146,7 +139,7 @@
   users.users.cc = {
     isNormalUser = true;
     description = "cc";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "video" "kvm" "adbusers"];
     packages = with pkgs; [
     	# thunderbird
     ];
@@ -158,24 +151,28 @@
   programs.zsh.enable = true;
 
   # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    android_sdk.accept_license = true;
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     home-manager
     niri
-    bibata-cursors
     lshw
+    nvtopPackages.full
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+    # pinentryPackage = "curses"; # or "curses" for console
+  };
 
   # List services that you want to enable:
 
@@ -199,6 +196,13 @@
 
   # rog!
   services.supergfxd.enable = true;
+
+  # adb
+  programs.adb.enable = true;
+  services.udev.packages = [
+    pkgs.android-udev-rules
+  ];
+
 
   # swaylock
   security.pam.services.swaylock = {

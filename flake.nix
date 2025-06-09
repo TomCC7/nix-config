@@ -62,7 +62,7 @@
           ({ config, pkgs, ... }: {
            nixpkgs.overlays = [ emacs-overlay.overlays.emacs ];
            environment.systemPackages = [
-           ((pkgs.emacsPackagesFor pkgs.emacsPgtk).emacsWithPackages (epkgs: [
+           ((pkgs.emacsPackagesFor pkgs.emacs-git-pgtk).emacsWithPackages (epkgs: [
              epkgs.vterm
              (epkgs.treesit-grammars.with-grammars (grammars: [
                                                     grammars.tree-sitter-kdl

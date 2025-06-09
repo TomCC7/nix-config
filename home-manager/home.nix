@@ -64,10 +64,13 @@
     zathura
     zotero
     code-cursor
+    vscode
     youtube-music
     nomacs
     element-desktop
     telegram-desktop
+    unityhub
+    sidequest
     # WINDOW MANAGER
     rofi-wayland
     brightnessctl
@@ -81,9 +84,11 @@
     swaylock-effects
     pavucontrol
     glmark2
+    bibata-cursors
     # wpctl
     # CLIS
     git
+    git-lfs
     tmux
     stow
     alacritty
@@ -92,6 +97,9 @@
     htop
     ripgrep
     feh
+    unzip
+    unar
+    lsof
     # programming
     lua
     uv
@@ -106,8 +114,9 @@
 
   xsession.enable = true;
   systemd.user.sessionVariables = {
-    UV_PYTHON_PREFERENCE = "only-system";
-    UV_PYTHON = "${pkgs.python3}/bin/python";
+    # cursor
+    XCURSOR_THEME = "Bibata-Modern-Ice";
+    XCURSOR_SIZE = "24";
     # wayland
     NIXOS_OZONE_WL = "1";
     DISPLAY = ":1";
