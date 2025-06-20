@@ -92,6 +92,7 @@
     tmux
     stow
     alacritty
+    alacritty.terminfo
     eza
     bottom
     htop
@@ -100,10 +101,22 @@
     unzip
     unar
     lsof
+    direnv
+    nix-direnv
     # programming
     lua
     uv
     python310
+    telegraf
+    rustup
+    llvm
+    clang
+    openssl
+    openssl.dev
+    pkg-config
+    zlib
+    cacert
+    cloc
     # fonts
     meslo-lgs-nf
     nerd-fonts.meslo-lg
@@ -135,6 +148,8 @@
     XMODIFIERS = "@im=fcitx";
     SDL_IM_MODULE = "fcitx";
     GLFW_IM_MODULE = "ibus";
+    # rust build
+    PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
   };
 
 
@@ -145,6 +160,17 @@
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
+
+  # xdg portal
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ]; # For a GTK file picker, similar to Ubuntu
+    config = {
+      common = {
+        default = [ "gtk" ];
+      };
+    };
+  };
 
   # niri related systemd
   systemd.user.services = {

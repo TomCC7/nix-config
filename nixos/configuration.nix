@@ -139,7 +139,7 @@
   users.users.cc = {
     isNormalUser = true;
     description = "cc";
-    extraGroups = [ "networkmanager" "wheel" "video" "kvm" "adbusers"];
+    extraGroups = [ "networkmanager" "wheel" "video" "kvm" "adbusers" "docker"];
     packages = with pkgs; [
     	# thunderbird
     ];
@@ -203,6 +203,8 @@
     pkgs.android-udev-rules
   ];
 
+  # docker
+  virtualisation.docker.enable = true;
 
   # swaylock
   security.pam.services.swaylock = {
