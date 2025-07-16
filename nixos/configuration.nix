@@ -42,15 +42,21 @@
     LC_TIME = "en_US.UTF-8";
   };
 
+  # keyring
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.gdm.enableGnomeKeyring = true;
+  security.pam.services.sddm.enableGnomeKeyring = true;
+
   # Enable the X11 windowing system.
   services.libinput.enable = true;
   # services.wayland.enable = true;
-  services.displayManager = {
-    # sddm.enable = true;
-    sessionPackages = [
-      pkgs.niri
-    ];
-  };
+  # services.displayManager = {
+  #   # sddm.enable = true;
+  #   sessionPackages = [
+  #     pkgs.niri
+  #   ];
+  # };
+  programs.niri.enable = true;
   services.xserver = {
     enable = true;
     displayManager.gdm.enable = true;
@@ -123,6 +129,9 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    jack.enable = true;
+    wireplumber.enable = true;
+
     # If you want to use JACK applications, uncomment this
     # jack.enable = true;
 
@@ -160,9 +169,11 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     home-manager
-    niri
     lshw
     nvtopPackages.full
+    linuxptp
+    ethtool
+    slurp
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -194,9 +205,6 @@
   system.stateVersion = "25.05"; # Did you read the comment?
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # rog!
-  services.supergfxd.enable = true;
-
   # adb
   programs.adb.enable = true;
   services.udev.packages = [
@@ -213,6 +221,28 @@
     '';
   };
 
+  # ntp
+  services.chrony = {
+    enable = true;
+    servers = [ "time.cloudflare.com" ];
+    enableNTS = true; # For Network Time Security
+  };
+
+  # xdg portal
+  # xdg.portal = {
+  #   enable = true;
+  #   # config = {
+  #   #   common.default = ["gnome"];
+  #   # };
+  #   extraPortals = with pkgs; [
+  #     # xdg-desktop-portal-wlr  # For wlroots compositors
+  #     xdg-desktop-portal-gtk # Uncomment for GNOME
+  #     # xdg-desktop-portal-gnome
+  #   ];
+  # };
+
+  # rog!
+  services.supergfxd.enable = true;
   services = {
     asusd = {
       enable = true;

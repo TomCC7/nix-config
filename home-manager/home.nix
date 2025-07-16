@@ -71,6 +71,8 @@
     telegram-desktop
     unityhub
     sidequest
+    mpv
+    kooha
     # WINDOW MANAGER
     rofi-wayland
     brightnessctl
@@ -85,6 +87,8 @@
     pavucontrol
     glmark2
     bibata-cursors
+    gparted
+    exfatprogs
     # wpctl
     # CLIS
     git
@@ -106,7 +110,6 @@
     # programming
     lua
     uv
-    python310
     telegraf
     rustup
     llvm
@@ -117,6 +120,9 @@
     zlib
     cacert
     cloc
+    nodejs
+    yarn
+    pipx
     # fonts
     meslo-lgs-nf
     nerd-fonts.meslo-lg
@@ -160,17 +166,6 @@
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
-
-  # xdg portal
-  xdg.portal = {
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ]; # For a GTK file picker, similar to Ubuntu
-    config = {
-      common = {
-        default = [ "gtk" ];
-      };
-    };
-  };
 
   # niri related systemd
   systemd.user.services = {

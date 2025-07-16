@@ -4,6 +4,7 @@
   inputs = {
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    niri-flake.url = "github:sodiboo/niri-flake";
     # You can access packages and modules from different nixpkgs revs
     # at the same time. Here's an working example:
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -21,6 +22,7 @@
     self,
     nixpkgs,
     home-manager,
+    niri-flake,
     emacs-overlay,
     ...
   } @ inputs: let
@@ -71,6 +73,7 @@
            ];
            })
         home-manager.nixosModules.default
+        niri-flake.nixosModules.niri
         ./nixos/configuration.nix
         ];
       };
