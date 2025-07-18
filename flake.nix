@@ -75,6 +75,27 @@
         home-manager.nixosModules.default
         niri-flake.nixosModules.niri
         ./nixos/configuration.nix
+        ./nixos/astra/configuration_astra.nix
+        ];
+      };
+      ccdesktop = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        modules = [
+          ({ config, pkgs, ... }: {
+           nixpkgs.overlays = [ emacs-overlay.overlays.emacs ];
+           environment.systemPackages = [
+           ((pkgs.emacsPackagesFor pkgs.emacs-git-pgtk).emacsWithPackages (epkgs: [
+             epkgs.vterm
+             (epkgs.treesit-grammars.with-grammars (grammars: [
+                                                    grammars.tree-sitter-kdl
+             ]))
+           ]))
+           ];
+           })
+        home-manager.nixosModules.default
+        niri-flake.nixosModules.niri
+        ./nixos/configuration.nix
+        ./nixos/ccdesktop/configuration_ccdesktop.nix
         ];
       };
     };
@@ -83,6 +104,14 @@
     # Available through 'home-manager --flake .#your-username@your-hostname'
     homeConfigurations = {
       "cc@astra-rog" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+        extraSpecialArgs = {inherit inputs outputs;};
+        modules = [
+          # > Our main home-manager configuration file <
+          ./home-manager/home.nix
+        ];
+      };
+      "cc@ccdesktop" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
