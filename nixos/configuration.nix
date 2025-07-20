@@ -191,4 +191,16 @@
   #     # xdg-desktop-portal-gnome
   #   ];
   # };
+
+    # ssh server
+  services.openssh = {
+    enable = true;
+    # Optional: allow password authentication (not recommended for production)
+    passwordAuthentication = false;
+    # Optional: set custom SSH port
+    # port = 22;
+    # For extra security, change the following as you wish:
+    permitRootLogin = "prohibit-password";
+  };
+  services.flatpak.enable = true;
 }

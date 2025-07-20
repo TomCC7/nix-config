@@ -57,7 +57,15 @@
     viAlias = true;
     vimdiffAlias = true;
   };
-  programs.bash.enable = true;
+  programs = {
+    direnv = {
+      enable = true;
+      enableBashIntegration = true; # see note on other shells below
+      nix-direnv.enable = true;
+    };
+
+    bash.enable = true; # see note on other shells below
+  };
   home.packages = with pkgs; [
     # DESKTOP APPS
     google-chrome
@@ -73,6 +81,8 @@
     sidequest
     mpv
     kooha
+    appimage-run
+    orca-slicer
     # WINDOW MANAGER
     rofi-wayland
     brightnessctl
@@ -105,8 +115,6 @@
     unzip
     unar
     lsof
-    direnv
-    nix-direnv
     # programming
     lua
     uv
@@ -228,8 +236,7 @@
   programs.ssh = {
     enable = true;
     extraConfig = ''
-Host *
-IdentityAgent "~/.1password/agent.sock"
+      IdentityAgent "~/.1password/agent.sock"
       '';
   };
 
