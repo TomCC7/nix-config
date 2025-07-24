@@ -115,6 +115,9 @@
     unzip
     unar
     lsof
+    bind
+    traceroute
+    nethogs
     # programming
     lua
     uv
@@ -233,12 +236,12 @@
   };
 
   # 1password ssh
-  programs.ssh = {
-    enable = true;
-    extraConfig = ''
-      IdentityAgent "~/.1password/agent.sock"
-      '';
-  };
+  # programs.ssh = {
+  #   enable = true;
+  #   extraConfig = ''
+  #     IdentityAgent "~/.1password/agent.sock"
+  #     '';
+  # };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "25.05";
