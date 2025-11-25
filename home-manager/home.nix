@@ -71,18 +71,18 @@
     google-chrome
     zathura
     zotero
-    code-cursor
+    # code-cursor
     vscode
     youtube-music
     nomacs
     element-desktop
     telegram-desktop
-    unityhub
-    sidequest
     mpv
     kooha
-    appimage-run
-    orca-slicer
+    kdePackages.filelight
+    moonlight-qt
+    steam-run
+    nix-ld
     # WINDOW MANAGER
     rofi-wayland
     brightnessctl
@@ -99,8 +99,12 @@
     bibata-cursors
     gparted
     exfatprogs
+    mongodb-compass
     # wpctl
     # CLIS
+    bun
+    fd
+    jq
     git
     git-lfs
     tmux
@@ -118,6 +122,8 @@
     bind
     traceroute
     nethogs
+    rclone
+    mosh
     # programming
     lua
     uv
@@ -133,7 +139,9 @@
     cloc
     nodejs
     yarn
+    pnpm
     pipx
+    duckdb
     # fonts
     meslo-lgs-nf
     nerd-fonts.meslo-lg
@@ -150,7 +158,7 @@
     # wayland
     NIXOS_OZONE_WL = "1";
     DISPLAY = ":1";
-    GDK_BACKEND = "wayland,x11";
+    # GDK_BACKEND = "wayland,x11";
     SDL_VIDEODRIVER = "wayland";
     CLUTTER_BACKEND = "wayland";
     XDG_SESSION_TYPE = "wayland";

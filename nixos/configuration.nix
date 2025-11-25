@@ -106,8 +106,14 @@
     linuxptp
     ethtool
     slurp
+    nvidia-container-toolkit
+    appimage-run
+    vault
+    fuse3
+    fuse
   ];
 
+  programs.fuse.userAllowOther = true;
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -144,7 +150,24 @@
   ];
 
   # docker
-  virtualisation.docker.enable = true;
+  hardware.nvidia-container-toolkit.enable = true;
+
+  virtualisation.docker = {
+    enable = true;
+    # Optionally, enable rootless Docker if needed
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+      daemon.settings.features.cdi = true;
+    };
+    # You can add other docker daemon settings if required
+    daemon.settings = {
+      features.cdi = true;
+    };
+  };
+
+  hardware.nvidia.modesetting.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ]; 
 
   # swaylock
   security.pam.services.swaylock = {
@@ -154,11 +177,11 @@
   };
 
   # ntp
-  services.chrony = {
-    enable = true;
-    servers = [ "time.cloudflare.com" ];
-    enableNTS = true; # For Network Time Security
-  };
+  # services.chrony = {
+  #   enable = true;
+  #   servers = [ "time.cloudflare.com" ];
+  #   enableNTS = true; # For Network Time Security
+  # };
 
   # 1password
   programs._1password.enable = true;

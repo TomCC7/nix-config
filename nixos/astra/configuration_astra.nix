@@ -8,6 +8,9 @@
 
   networking.hostName = "astra-rog"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.extraHosts = ''
+    100.83.90.119 gitlab.astrabot.com
+  '';
 
   # graphics
   hardware.graphics.enable = true;
@@ -75,5 +78,13 @@
       enable = true;
       enableUserService = true;
     };
+  };
+
+  # zerotier
+  services.zerotierone = {
+  enable = true;
+  joinNetworks = [
+    "d5e5fb653745dba8"
+  ];
   };
 }

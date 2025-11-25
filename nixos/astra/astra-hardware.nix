@@ -10,9 +10,10 @@
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "vmd" "nvme" "usbhid" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.kernelPackages = pkgs.linuxPackages;
 
   boot.kernelModules = [ "kvm-intel" ];
+  # boot.kernelParams = [ "systemd.swap=0" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
